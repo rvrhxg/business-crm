@@ -1,0 +1,24 @@
+name: CRM checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm test
+      - run: node --check public/app.js
+      - run: docker build -t crm-test .
+      - run: node scripts/container-smoke.js
+      - run: npm install --no-save --package-lock=false playwright@1.56.1
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/browser-smoke.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: crm-browser-screenshots
+          path: screenshots/

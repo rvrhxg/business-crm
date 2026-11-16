@@ -1,0 +1,12 @@
+services:
+  crm:
+    build: .
+    ports:
+      - "127.0.0.1:3001:3001"
+    environment:
+      APP_ORIGIN: http://localhost:3001
+    volumes:
+      - crm-data:/data
+    restart: unless-stopped
+volumes:
+  crm-data:
