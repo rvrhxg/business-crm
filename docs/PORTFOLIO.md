@@ -1,73 +1,69 @@
 # Портфолио rvrhxg
 
-Пять самостоятельных учебных MVP с открытым кодом. Это демонстрация инженерных решений и проверяемых сценариев, а не коммерческий опыт и не работающие production-сервисы. Публичный хостинг не подключён. Все примеры, пользователи и финансовые данные вымышлены; платные сервисы не используются.
+Пять самостоятельных учебных MVP с открытым кодом, воспроизводимым запуском и автоматическими проверками. Это демонстрация инженерных решений, не заявление о коммерческом опыте или production-эксплуатации. Данные и пользователи вымышлены, платные услуги и публичный хостинг не подключены.
 
-Основные проекты для Python-резюме — Atelier Commerce, Deskline и Ledger. Relay и Contour показывают опыт fullstack-разработки на Node.js.
+Основные Python-проекты — Atelier, Deskline и Ledger. Relay и Contour дополняют портфолио fullstack-разработкой на Node.js.
 
-| Проект | Сценарий | Backend / БД | Код и запуск |
+| Проект | Реализованный сценарий | Стек | Код и скриншоты |
 |---|---|---|---|
-| Relay HelpDesk | Клиентские обращения, ответы, статусы, роли, аудит | Node.js 24 / SQLite | [Репозиторий](https://github.com/rvrhxg/-helpdesk-system) · [README](https://github.com/rvrhxg/-helpdesk-system#readme) |
-| Contour CRM | Клиенты, сделки, этапы воронки, задачи и заметки | Node.js 24 / SQLite | [Репозиторий](https://github.com/rvrhxg/business-crm) · [README](https://github.com/rvrhxg/business-crm#readme) |
-| Atelier Commerce | Каталог, корзина, транзакционное оформление, история заказов | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL | [Репозиторий](https://github.com/rvrhxg/E-commerce-Platform) · [README](https://github.com/rvrhxg/E-commerce-Platform#readme) |
-| Deskline Business Bot | Запись через команды Telegram и управление расписанием | Python / aiogram / FastAPI / SQLite | [Репозиторий](https://github.com/rvrhxg/Telegram-Business-Bot) · [README](https://github.com/rvrhxg/Telegram-Business-Bot#readme) |
-| Ledger Finance | Операции, аналитика по периодам, бюджеты и идемпотентный CSV-импорт | Python / FastAPI / pandas / SQLAlchemy / PostgreSQL | [Репозиторий](https://github.com/rvrhxg/Finance-Dashboard) · [README](https://github.com/rvrhxg/Finance-Dashboard#readme) |
+| Relay HelpDesk | Обращения, роли, ответы, статусы, аудит | Node.js24 / SQLite / REST | [Код](https://github.com/rvrhxg/-helpdesk-system) · [Экраны](https://github.com/rvrhxg/-helpdesk-system/tree/main/docs/screenshots) |
+| Contour CRM | Клиенты, сделки, воронка, задачи и заметки | Node.js24 / SQLite / REST | [Код](https://github.com/rvrhxg/business-crm) · [Экраны](https://github.com/rvrhxg/business-crm/tree/main/docs/screenshots) |
+| Atelier Commerce | Поиск и фильтры на сервере, cursor-каталог, транзакционное оформление и история заказов | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL | [Код](https://github.com/rvrhxg/E-commerce-Platform) · [Экраны](https://github.com/rvrhxg/E-commerce-Platform/tree/main/docs/screenshots) |
+| Deskline | Запись на услуги, сотрудники, независимые расписания и защита пересечений | Python / aiogram / FastAPI / SQLite | [Код](https://github.com/rvrhxg/Telegram-Business-Bot) · [Экраны](https://github.com/rvrhxg/Telegram-Business-Bot/tree/main/docs/screenshots) |
+| Ledger Finance | Операции, бюджеты, SQL-агрегации, сравнение периодов и CSV | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL / pandas | [Код](https://github.com/rvrhxg/Finance-Dashboard) · [Экраны](https://github.com/rvrhxg/Finance-Dashboard/tree/main/docs/screenshots) |
 
-## Скриншоты настоящего интерфейса
+## Видеодемонстрации
 
-Снимки получены браузерными сценариями CI; это не макеты. Дополнительные мобильные экраны находятся в `docs/screenshots` каждого репозитория.
+Реальные записи экрана Chromium с вымышленными данными, без звука. Сценарии воспроизводятся Playwright; действия замедлены для читаемости. Это не макеты и не запись работающего публичного сервиса.
 
-### Relay
+- [Atelier: витрина, аккаунт, корзина и заказ](https://github.com/rvrhxg/E-commerce-Platform/tree/main/docs/demo).
+- [Deskline: сотрудник, слот, фильтр расписания и завершение записи](https://github.com/rvrhxg/Telegram-Business-Bot/tree/main/docs/demo). Показана административная панель, не живая Telegram-доставка.
+- [Ledger: отчёт, сравнение, CSV и операции](https://github.com/rvrhxg/Finance-Dashboard/tree/main/docs/demo).
 
-![HelpDesk](https://raw.githubusercontent.com/rvrhxg/-helpdesk-system/main/docs/screenshots/dashboard-desktop.png)
+В каждой папке находятся WebM, обзорные кадры и метаданные длительности/разрешения/хеша. Происхождение и проверенный CI указаны рядом с записью.
 
-### Contour
+![Ledger desktop](https://raw.githubusercontent.com/rvrhxg/Finance-Dashboard/main/docs/screenshots/dashboard-desktop.png)
 
-![CRM](https://raw.githubusercontent.com/rvrhxg/business-crm/main/docs/screenshots/pipeline-desktop.png)
+## Запуск
 
-### Atelier
+Каждый репозиторий самостоятелен. Выполняйте команды из его корня. Для Python создайте отдельное окружение `python -m venv .venv`, активируйте его и установите `python -m pip install -r requirements.lock`. Windows: `.venv\Scripts\python.exe`, Linux/macOS: `.venv/bin/python`. Требуется Python3.12–3.14; Docker использует3.14. Локальные быстрые сценарии работают с SQLite; Compose Atelier/Ledger — с PostgreSQL17.
 
-![Commerce](https://raw.githubusercontent.com/rvrhxg/E-commerce-Platform/main/docs/screenshots/store-desktop.png)
-
-### Deskline
-
-![Deskline](https://raw.githubusercontent.com/rvrhxg/Telegram-Business-Bot/main/docs/screenshots/dashboard-desktop.png)
-
-Симуляция обработчиков команд не означает проверенную доставку Telegram.
-
-### Ledger
-
-![Finance](https://raw.githubusercontent.com/rvrhxg/Finance-Dashboard/main/docs/screenshots/dashboard-desktop.png)
-
-## Как запустить
-
-Каждый репозиторий самостоятелен: клонируйте нужный и выполняйте команды из его корня. Для Python создайте отдельное окружение (`python -m venv .venv`), активируйте его и установите `python -m pip install -r requirements.lock`. Для Windows можно вызывать `.venv\Scripts\python.exe` напрямую; для Linux/macOS — `.venv/bin/python`. Python 3.12–3.14 проверяются в CI, Docker использует 3.14. Локальные быстрые сценарии Python используют SQLite; Commerce и Finance в Docker — PostgreSQL.
-
-| Проект | Подготовка и локальный запуск | Адрес | Тесты |
+| Проект | Подготовка новой базы и запуск | Адрес | Тесты |
 |---|---|---|---|
-| Relay | `npm start`, зарегистрироваться; сотрудник создаётся отдельной CLI из README | http://localhost:3000 | `npm test` |
+| Relay | `npm start`, зарегистрироваться; сотрудник создаётся CLI из README | http://localhost:3000 | `npm test` |
 | Contour | `npm start`, зарегистрироваться | http://localhost:3001 | `npm test` |
-| Atelier | `python -m alembic upgrade head`, `python -m app.seed --catalog`, `uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8000` | http://localhost:8000 | `pytest -q` |
-| Deskline | `python -m app.setup --admin-email admin@example.test --demo`, команда сервера — ниже | http://localhost:8001 | `pytest -q` |
-| Ledger | `python -m app.seed --email demo@example.test`, команда сервера — ниже | http://localhost:8002 | `pytest -q` |
+| Atelier | `python -m alembic upgrade head`, `python -m app.seed --catalog`, затем команда сервера ниже | http://localhost:8000 | `pytest -q` |
+| Deskline | `python -m app.setup --admin-email admin@example.test --demo`, затем команда сервера ниже | http://localhost:8001 | `pytest -q` |
+| Ledger | `python -m alembic upgrade head`, `python -m app.seed --email demo@example.test`, затем команда сервера ниже | http://localhost:8002 | `pytest -q` |
 
-Для Deskline: `uvicorn app.api:create_app --factory --host 127.0.0.1 --port 8001`. Для Ledger: `uvicorn app.main:create_app --factory --host 127.0.0.1 --port 8002`. Перед запуском установите APP_ORIGIN соответственно `http://localhost:8001` или `http://localhost:8002` (PowerShell: `$env:APP_ORIGIN='http://localhost:8002'`, POSIX: `export APP_ORIGIN=http://localhost:8002`). Seed запрашивает пароль локально через getpass; встроенных общих паролей нет. Не запускайте seed повторно поверх существующих данных.
+Сервер Atelier: `uvicorn app.main:create_app --factory --no-access-log --host 127.0.0.1 --port 8000`. Deskline: `uvicorn app.api:create_app --factory --no-access-log --host 127.0.0.1 --port 8001`. Ledger: `uvicorn app.main:create_app --factory --no-access-log --host 127.0.0.1 --port 8002`.
 
-Для Docker нужен Docker Engine/Desktop и Compose. В Commerce и Ledger сначала создайте исключённый из Git `.env` с собственным POSTGRES_PASSWORD по README. Затем в выбранном репозитории: `docker compose up --build -d`. Seed выполняется внутри соответствующего контейнера (`store`, `dashboard`), инструкции — в README. `docker compose down` останавливает проект; не используйте `down -v`, если хотите сохранить данные. Commerce и HelpDesk занимают разные порты, но несколько копий одного проекта требуют перенастройки.
+APP_ORIGIN должен совпадать с адресом браузера. По умолчанию используется http://localhost с портом соответствующего проекта. Для изменения: PowerShell `$env:APP_ORIGIN='http://localhost:8002'`; POSIX `export APP_ORIGIN=http://localhost:8002`. Seed запрашивает пароль локально через getpass; общих встроенных паролей нет. Демо не перезаписывает существующие аккаунты/каталог.
 
-Deskline по умолчанию запускает только панель. Реальный бот включается отдельным профилем с BOT_TOKEN, заданным локально. Токен не публикуется в коде, README, логах и чате. Живые polling и доставка Telegram не проверены; тесты проходят через настоящий aiogram Dispatcher с перехватом транспортного слоя.
+Для прежней базы Atelier/Ledger сначала прочитайте docs/MIGRATIONS.md: нужна резервная копия, сверка схемы и stamp0001. Автоматически маркировать произвольную базу нельзя. Deskline переносит исходную схему на расписания сотрудников с сохранением ID; порядок обновления описан в docs/STAFF.md.
 
-## Что проверено и где смотреть доказательства
+Docker: установите Engine/Desktop с Compose. В Atelier/Ledger создайте исключённый из Git .env с собственным POSTGRES_PASSWORD по README, затем `docker compose up --build -d`. Seed запускается внутри store (Atelier) или dashboard (Ledger/Deskline). Остановка с сохранением данных — `docker compose down`; `down -v` удаляет тома. Все демонстрации рассчитаны на отдельное локальное окружение без пользовательского трафика.
 
-В каждом репозитории есть `.github/workflows/ci.yml`, `tests`/`test`, `docs/ARCHITECTURE.md` и `docs/ACCEPTANCE.md`. Последние результаты совместимости указываются в приёмке соответствующего Python-проекта. Зелёный CI подтверждает только перечисленные сценарии на указанном коммите.
+Deskline по умолчанию поднимает только панель. Polling включается отдельным профилем с BOT_TOKEN в локальном окружении. Токен не передаётся в чат и не публикуется. Живая доставка Telegram и polling не проверены: тесты используют реальный Dispatcher с перехватом транспорта.
 
-| Python-проект | Подтверждённый CI | Результат |
+## Доказательства проверок
+
+| Python-проект | Проверенный эксплуатационный CI | Область |
 |---|---|---|
-| Atelier | [43909675515](https://github.com/rvrhxg/E-commerce-Platform/actions/runs/43909675515), 74e59f5 | Python 3.12/3.13/3.14; миграции, авторизация, PostgreSQL-гонка, Docker и Chromium с переходами страниц |
-| Deskline | [43909764342](https://github.com/rvrhxg/Telegram-Business-Bot/actions/runs/43909764342), 6b4d66d | Python 3.12/3.13/3.14; 10 тестов, включая гонку пересекающихся записей, Docker и Chromium |
-| Ledger | [43909831110](https://github.com/rvrhxg/Finance-Dashboard/actions/runs/43909831110), 9edf48f | Python 3.12/3.13/3.14; 7 тестов, Docker/PostgreSQL и Chromium |
+| Atelier | [43929968154](https://github.com/rvrhxg/E-commerce-Platform/actions/runs/43929968154), d361533 | Python3.12/3.13/3.14 с PostgreSQL; миграции, авторизация, курсоры, гонка за остаток, dump/restore; Docker и Chromium |
+| Deskline | [43930043895](https://github.com/rvrhxg/Telegram-Business-Bot/actions/runs/43930043895), c1ec3e7 | Python3.12/3.13/3.14 с SQLite; сотрудники, интервалы и конкурентная запись; контейнерный backup/restore и Chromium |
+| Ledger | [43930004510](https://github.com/rvrhxg/Finance-Dashboard/actions/runs/43930004510), 5d63c21 | Python3.12/3.13/3.14 с PostgreSQL; версии схемы, точные SQL-суммы/сравнение/владельцы, dump/restore; Docker и Chromium |
 
-Матрица совместимости запускает тесты с SQLite; контейнерные и PostgreSQL-сценарии выполняются отдельным job на Python 3.14. После этих коммитов могут следовать изменения документации с записью результатов.
+Atelier/Ledger проверяют PostgreSQL во всех трёх версиях Python. Docker/browser job использует3.14. Локально установлен3.14; Docker и Chromium выполнялись в Linux CI. Результаты и коммиты следующих изменений записываются в docs/ACCEPTANCE.md. Видеодемонстрации имеют собственные CI-ссылки в docs/demo/README.md.
 
-Relay: роли и обращения, HTTP-защита, Docker restart/persistence и Chromium. Contour: владение клиентами/сделками, бизнес-правила стадий и задач, Docker restart/persistence и Chromium. Atelier: точные суммы, снимки цен, rollback нескольких товаров, повтор заказа, PostgreSQL-гонка за последнюю единицу, миграции, роли/сессии и страницы. Deskline: повтор update_id, чужая отмена, пересечения интервалов и конкурентная запись, admin REST и контейнерная панель. Ledger: точные суммы, владельцы, периоды, pandas-агрегации, атомарный повторяемый CSV-импорт, бюджеты и сохранность после перезапуска PostgreSQL.
+Ruff E9/F проверяет app/tests/scripts. Строгий mypy охватывает указанные в pyproject.toml типизированные модули курсоров/периодов/интервалов, логирования и backup; полная типизация всего backend не заявляется. Для запуска качества установите requirements-quality.txt, если он есть, и используйте `python -m ruff check app tests scripts`, `python -m mypy`.
 
-Локально установлен Python 3.14; Docker и браузерные проверки выполнялись в Linux CI. Нагрузочные испытания, внешний аудит безопасности, восстановление резервной копии в аварии, реальная оплата, банковские интеграции и Telegram-доставка в проверенную область не входят. Есть ограниченный in-memory limiter; нет восстановления пароля и полной production-наблюдаемости. Offset-пагинация Atelier может сдвигаться при конкурентных вставках, списки Contour и Ledger имеют документированные лимиты.
+Readiness возвращает200/503 без внутренних деталей; JSON HTTP-логи исключают URL/query/body/cookies/личность. SQLite-тесты проверяют WAL-снимок, restore, внешние ключи, повреждённый источник и запрет перезаписи. PostgreSQL-тесты восстанавливают dump в отдельную пустую базу и проверяют BigInteger/связи и отказ непустой цели. Процедуры и пределы этих доказательств — в docs/OPERATIONS.md.
+
+Relay и Contour также прошли проверки домена/прав, Docker persistence и Chromium; доказательства указаны в их docs/ACCEPTANCE.md. Новые Python-возможности на Node-проекты не распространяются.
+
+## Границы MVP
+
+Нет реальных платежей, банковских интеграций, восстановления пароля, распределённого limiter и подтверждённых нагрузочных гарантий. Списки Contour ограничены200, список операций Ledger —500; агрегаты Ledger считаются SQL по всему выбранному периоду. Курсор Atelier фиксирует верхний ID, но не замораживает изменения товаров; история заказов сохраняет offset. Сравнение Ledger не обещает единый snapshot между запросами. Deskline не реализует отпуска/перерывы/перевод записи сотруднику.
+
+Backups содержат чувствительные данные и не публикуются. Шифрование/ротация/offsite/PITR, аварийные RPO/RTO и внешний аудит безопасности не проверены. Зелёный CI подтверждает конкретные сценарии на конкретном коммите, а не production-готовность.
