@@ -19,3 +19,6 @@ Docker: `docker compose up --build -d`. Данные сохраняются в �
 ![Карточка сделки](docs/screenshots/deal-desktop.png)
 
 [Мобильная версия](docs/screenshots/pipeline-mobile.png)
+
+
+[Общее портфолио: проекты, запуск, скриншоты и вопросы для собеседования](docs/PORTFOLIO.md). Все проекты — самостоятельные учебные MVP; production-готовность не заявляется.
