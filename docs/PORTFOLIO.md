@@ -1,16 +1,22 @@
 # Портфолио rvrhxg
 
-Пять самостоятельных учебных MVP с открытым кодом, воспроизводимым запуском и автоматическими проверками. Это демонстрация инженерных решений, не заявление о коммерческом опыте или production-эксплуатации. Данные и пользователи вымышлены, платные услуги и публичный хостинг не подключены.
+Шесть самостоятельных учебных MVP с открытым кодом, воспроизводимым запуском и автоматическими проверками. Это демонстрация инженерных решений, не заявление о коммерческом опыте или production-эксплуатации. Данные и пользователи вымышлены, платные услуги и публичный хостинг не подключены.
 
 Основные Python-проекты — Atelier, Deskline и Ledger. Relay и Contour дополняют портфолио fullstack-разработкой на Node.js.
 
 | Проект | Реализованный сценарий | Стек | Код и скриншоты |
 |---|---|---|---|
-| Relay HelpDesk | Обращения, роли, ответы, статусы, аудит | Node.js24 / SQLite / REST | [Код](https://github.com/rvrhxg/-helpdesk-system) · [Экраны](https://github.com/rvrhxg/-helpdesk-system/tree/main/docs/screenshots) |
+| Relay HelpDesk | Обращения, роли, ответы, статусы, аудит, SLA и аналитика | Node.js24 / SQLite / REST | [Код](https://github.com/rvrhxg/-helpdesk-system) · [Экраны](https://github.com/rvrhxg/-helpdesk-system/tree/main/docs/screenshots) |
 | Contour CRM | Клиенты, сделки, воронка, задачи и заметки | Node.js24 / SQLite / REST | [Код](https://github.com/rvrhxg/business-crm) · [Экраны](https://github.com/rvrhxg/business-crm/tree/main/docs/screenshots) |
-| Atelier Commerce | Поиск и фильтры на сервере, cursor-каталог, транзакционное оформление и история заказов | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL | [Код](https://github.com/rvrhxg/E-commerce-Platform) · [Экраны](https://github.com/rvrhxg/E-commerce-Platform/tree/main/docs/screenshots) |
+| Atelier Commerce | Поиск и фильтры на сервере, cursor-каталог, постоянная корзина, атомарная очистка при заказе и история заказов | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL | [Код](https://github.com/rvrhxg/E-commerce-Platform) · [Экраны](https://github.com/rvrhxg/E-commerce-Platform/tree/main/docs/screenshots) |
 | Deskline | Запись на услуги, сотрудники, независимые расписания и защита пересечений | Python / aiogram / FastAPI / SQLite | [Код](https://github.com/rvrhxg/Telegram-Business-Bot) · [Экраны](https://github.com/rvrhxg/Telegram-Business-Bot/tree/main/docs/screenshots) |
 | Ledger Finance | Операции, бюджеты, SQL-агрегации, сравнение периодов и CSV | Python / FastAPI / SQLAlchemy / Alembic / PostgreSQL / pandas | [Код](https://github.com/rvrhxg/Finance-Dashboard) · [Экраны](https://github.com/rvrhxg/Finance-Dashboard/tree/main/docs/screenshots) |
+
+## API Health Monitor
+
+[Отдельная учебная CLI-утилита](https://github.com/rvrhxg/API-Health-Monitor): HTTP-доступность, длительность ответа, тайм-ауты, повторы, безопасные JSON-логи и CSV. Без сторонних runtime-зависимостей. 23 pytest-теста и локальное демо сбоя/восстановления проверены на Python 3.12–3.14: [CI44502702068](https://github.com/rvrhxg/API-Health-Monitor/actions/runs/44502702068). Запуск из отдельного репозитория: `python health_monitor.py --demo --csv demo.csv`; код1 ожидаем для намеренного сбоя. Нет фонового планировщика/уведомлений. Команды установки requirements.lock ниже относятся только к Atelier, Deskline и Ledger.
+
+Новые проверки: [корзина Atelier](https://github.com/rvrhxg/E-commerce-Platform/actions/runs/44296016413), [SLA HelpDesk](https://github.com/rvrhxg/-helpdesk-system/actions/runs/44501327397). Снимки корзины защищают очистку от параллельных изменений; редактирование остаётся last-write-wins. SLA — календарные часы без пауз и рабочих расписаний.
 
 ## Видеодемонстрации
 
