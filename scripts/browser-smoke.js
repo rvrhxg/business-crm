@@ -1,4 +1,4 @@
-import {chromium,expect} from 'playwright';
+import {chromium} from 'playwright';
 import {openDatabase} from '../src/database.js';import {createApp} from '../src/server.js';
 import {once} from 'node:events';import {mkdir} from 'node:fs/promises';import assert from 'node:assert/strict';
 const db=openDatabase(':memory:'),server=createApp({db,origin:'http://127.0.0.1:3001'});
@@ -18,11 +18,11 @@ try{
   db.prepare('INSERT INTO deals(owner_id,customer_id,title,amount_cents) VALUES(?,?,?,?)').run(1,1,'Page deal '+i,100);
  }
  await page.reload();await page.locator('#workspace').waitFor({state:'visible'});
- await expect(page.locator('#board .deal')).toHaveCount(50);
+ await page.waitForFunction(()=>document.querySelectorAll('#board .deal').length===50);
  await page.getByRole('button',{name:'Показать ещё сделки',exact:true}).click();
- await expect(page.locator('#board .deal')).toHaveCount(100);
+ await page.waitForFunction(()=>document.querySelectorAll('#board .deal').length===100);
  await page.getByRole('button',{name:'+ Сделка',exact:true}).click();
- await expect(page.locator('#editor select option')).toHaveCount(206);
+ await page.waitForFunction(()=>document.querySelectorAll('#editor select option').length===206);
  assert.deepEqual(errors,[]);
  console.log('CRM Chromium register/customer/deal/note/task/stage scenario passed.');
 }finally{await browser?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));db.close();}
