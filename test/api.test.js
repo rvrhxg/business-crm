@@ -23,5 +23,20 @@ test('CRM HTTP customer/deal/task workflow enforces account isolation',async()=>
   assert.equal((await call(`/tasks/${task.id}`,'PATCH',{done:true},alice)).status,200);
   assert.equal((await(await call('/stats','GET',null,alice)).json())[0].amount_cents,150000);
   assert.deepEqual(await(await call('/stats','GET',null,bob)).json(),[]);
+  for(let i=0;i<205;i++){
+   db.prepare('INSERT INTO customers(owner_id,name) VALUES(?,?)').run(1,'Demo '+i);
+   db.prepare('INSERT INTO deals(owner_id,customer_id,title,amount_cents) VALUES(?,?,?,?)').run(1,customer.id,'Demo '+i,100);
+  }
+  for(const endpoint of ['/customers','/deals']){
+   const ids=[];
+   for(let offset=0;offset<206;offset+=100){const r=await call(endpoint+'?limit=100&offset='+offset,'GET',null,alice);assert.equal(r.headers.get('x-total-count'),'206');ids.push(...(await r.json()).map(r=>r.id));}
+   assert.equal(new Set(ids).size,206);assert.equal(ids.length,206);
+   assert.deepEqual(await(await call(endpoint+'?limit=100&offset=0','GET',null,bob)).json(),[]);
+   assert.equal((await call(endpoint+'?limit=101','GET',null,alice)).status,400);
+   assert.equal((await call(endpoint+'?offset=-1','GET',null,alice)).status,400);
+  }
+  const filtered=await call('/deals?stage=proposal&limit=1','GET',null,alice);
+  assert.equal(filtered.headers.get('x-total-count'),'1');
+
  }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));db.close();}
 });

@@ -97,7 +97,18 @@ export function createApp({ db, origin = process.env.APP_ORIGIN || 'http://local
         res.setHeader('Set-Cookie', `session=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0${secure ? '; Secure' : ''}`);
         return send(200, { ok: true });
       }
-      if(path==='/api/customers' && req.method==='GET') return send(200,db.prepare('SELECT * FROM customers WHERE owner_id=? ORDER BY id DESC LIMIT 200').all(user.id));
+      const pagination=()=>{
+        const rawLimit=url.searchParams.get('limit')||'50',rawOffset=url.searchParams.get('offset')||'0';
+        if(!/^\d+$/.test(rawLimit)||!/^\d+$/.test(rawOffset))fail(400,'Invalid pagination');
+        const limit=Number(rawLimit),offset=Number(rawOffset);
+        if(!Number.isSafeInteger(offset)||offset>10000000||!Number.isSafeInteger(limit)||limit<1||limit>100)fail(400,'Invalid pagination');
+        return {limit,offset};
+      };
+      if(path==='/api/customers' && req.method==='GET') {
+        const {limit,offset}=pagination();
+        res.setHeader('X-Total-Count',String(db.prepare('SELECT count(*) AS n FROM customers WHERE owner_id=?').get(user.id).n));
+        return send(200,db.prepare('SELECT * FROM customers WHERE owner_id=? ORDER BY id DESC LIMIT ? OFFSET ?').all(user.id,limit,offset));
+      }
       if(path==='/api/customers' && req.method==='POST') {
         const data=await body(req);const name=text(data.name);
         const optional=value=>value==null||value===''?'':text(value,254);
@@ -117,7 +128,9 @@ export function createApp({ db, origin = process.env.APP_ORIGIN || 'http://local
       if(path==='/api/deals' && req.method==='GET') {
         const stage=url.searchParams.get('stage')||'';
         if(stage&&!stages.includes(stage))fail(400,'Invalid stage');
-        return send(200,db.prepare("SELECT d.*,c.name AS customer_name FROM deals d JOIN customers c ON c.id=d.customer_id WHERE d.owner_id=? AND (?='' OR d.stage=?) ORDER BY d.id DESC LIMIT 200").all(user.id,stage,stage));
+        const {limit,offset}=pagination();
+        res.setHeader('X-Total-Count',String(db.prepare("SELECT count(*) AS n FROM deals WHERE owner_id=? AND (?='' OR stage=?)").get(user.id,stage,stage).n));
+        return send(200,db.prepare("SELECT d.*,c.name AS customer_name FROM deals d JOIN customers c ON c.id=d.customer_id WHERE d.owner_id=? AND (?='' OR d.stage=?) ORDER BY d.id DESC LIMIT ? OFFSET ?").all(user.id,stage,stage,limit,offset));
       }
       if(path==='/api/deals' && req.method==='POST')return send(201,createDeal(db,user.id,await body(req)));
       if(path==='/api/stats'&&req.method==='GET')return send(200,db.prepare('SELECT stage,count(*) AS count,sum(amount_cents) AS amount_cents FROM deals WHERE owner_id=? GROUP BY stage').all(user.id));

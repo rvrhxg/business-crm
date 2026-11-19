@@ -1,4 +1,4 @@
-import {chromium} from 'playwright';
+import {chromium,expect} from 'playwright';
 import {openDatabase} from '../src/database.js';import {createApp} from '../src/server.js';
 import {once} from 'node:events';import {mkdir} from 'node:fs/promises';import assert from 'node:assert/strict';
 const db=openDatabase(':memory:'),server=createApp({db,origin:'http://127.0.0.1:3001'});
@@ -13,5 +13,16 @@ try{
  await page.getByLabel('Новая задача').fill('Отправить предложение');await page.getByLabel('Срок',{exact:true}).fill('2026-12-01');await page.locator('.card').filter({has:page.getByRole('heading',{name:'Задачи',exact:true})}).getByRole('button',{name:'Добавить'}).click();await page.getByRole('button',{name:'Выполнить',exact:true}).click();await page.getByText('✓ Отправить предложение · 2026-12-01',{exact:true}).waitFor();
  await page.getByLabel('Этап сделки').selectOption('proposal');await page.getByText('Stage: lead → proposal',{exact:true}).waitFor();
  await mkdir('screenshots',{recursive:true});await page.screenshot({path:'screenshots/deal-desktop.png',fullPage:true});await page.getByRole('button',{name:'← Воронка',exact:true}).click();await page.locator('#workspace').waitFor({state:'visible'});await page.screenshot({path:'screenshots/pipeline-desktop.png',fullPage:true});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'screenshots/pipeline-mobile.png',fullPage:true});assert.deepEqual(errors,[]);
+ for(let i=0;i<205;i++){
+  db.prepare('INSERT INTO customers(owner_id,name) VALUES(?,?)').run(1,'Page customer '+i);
+  db.prepare('INSERT INTO deals(owner_id,customer_id,title,amount_cents) VALUES(?,?,?,?)').run(1,1,'Page deal '+i,100);
+ }
+ await page.reload();await page.locator('#workspace').waitFor({state:'visible'});
+ await expect(page.locator('#board .deal')).toHaveCount(50);
+ await page.getByRole('button',{name:'Показать ещё сделки',exact:true}).click();
+ await expect(page.locator('#board .deal')).toHaveCount(100);
+ await page.getByRole('button',{name:'+ Сделка',exact:true}).click();
+ await expect(page.locator('#editor select option')).toHaveCount(206);
+ assert.deepEqual(errors,[]);
  console.log('CRM Chromium register/customer/deal/note/task/stage scenario passed.');
 }finally{await browser?.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));db.close();}
